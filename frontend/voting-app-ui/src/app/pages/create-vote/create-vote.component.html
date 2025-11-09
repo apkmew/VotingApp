@@ -1,0 +1,95 @@
+<div class="container py-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+  
+        <div class="card shadow-sm border-0 rounded-4">
+          <div class="card-header bg-primary text-white rounded-top-4">
+            <h4 class="mb-0">Create New Vote</h4>
+          </div>
+  
+          <div class="card-body p-4">
+  
+            <form #form="ngForm" (ngSubmit)="createVote(form)" novalidate>
+  
+              <!-- Title -->
+              <div class="mb-3">
+                <label class="form-label fw-bold">Title</label>
+                <input
+                  type="text"
+                  name="title"
+                  class="form-control form-control-lg"
+                  [(ngModel)]="vote.title"
+                  required
+                  placeholder="Enter vote title..."
+                />
+              </div>
+  
+              <!-- Description -->
+              <div class="mb-3">
+                <label class="form-label fw-bold">Description</label>
+                <textarea
+                  name="description"
+                  class="form-control"
+                  rows="3"
+                  [(ngModel)]="vote.description"
+                  placeholder="Optional description..."
+                ></textarea>
+              </div>
+  
+              <hr />
+  
+              <!-- Options Section -->
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h5 class="fw-bold mb-0">Options</h5>
+  
+                <button
+                  type="button"
+                  class="btn btn-outline-primary btn-sm"
+                  (click)="addOption()"
+                >
+                  + Add Option
+                </button>
+              </div>
+  
+              <div *ngFor="let opt of vote.options; let i = index" class="input-group mb-2">
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="opt.text"
+                  name="option{{ i }}"
+                  required
+                  placeholder="Option text..."
+                />
+  
+                <button
+                  type="button"
+                  class="btn btn-outline-danger"
+                  (click)="removeOption(i)"
+                >
+                  <i class="bi bi-x-lg"></i>
+                </button>
+              </div>
+  
+              <div *ngIf="vote.options.length < 2" class="text-danger small mb-2">
+                * At least 2 options are required.
+              </div>
+  
+              <div class="text-end mt-4">
+                <button
+                  class="btn btn-success btn-lg px-4"
+                  type="submit"
+                  [disabled]="form.invalid || vote.options.length < 2"
+                >
+                  Create Vote
+                </button>
+              </div>
+  
+            </form>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+
+  

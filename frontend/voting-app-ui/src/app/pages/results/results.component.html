@@ -1,0 +1,49 @@
+<div class="container py-4" *ngIf="vote">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      
+      <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-header bg-success text-white rounded-top-4">
+          <h4 class="mb-0">Results: {{ vote.title }}</h4>
+        </div>
+
+        <div class="card-body p-4">
+
+          <p class="text-muted">{{ vote.description }}</p>
+
+          <!-- Sum votes -->
+          <ng-container *ngIf="totalVotes > 0; else noVotes">
+            <div *ngFor="let opt of vote.options" class="mb-3">
+              <div class="d-flex justify-content-between mb-1">
+                <span>{{ opt.text }}</span>
+                <span>{{ opt.votes || 0 }} votes</span>
+              </div>
+
+              <div class="progress">
+                <div
+                  class="progress-bar bg-primary"
+                  role="progressbar"
+                  [style.width.%]="((opt.votes || 0) / totalVotes) * 100"
+                >
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-template #noVotes>
+            <p class="text-muted fst-italic">No votes yet.</p>
+          </ng-template>
+
+          <div class="text-end mt-4">
+            <button class="btn btn-secondary" routerLink="/create">
+              Create New Vote
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+  
